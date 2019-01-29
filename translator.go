@@ -12,7 +12,11 @@ type Translator struct {
 
 // Translate convert given key
 func (t Translator) Translate(key string, params ...interface{}) string {
-	return fmt.Sprintf(t.dictionary[key], params...)
+	if translation, ok := t.dictionary[key]; ok {
+		return fmt.Sprintf(translation, params...)
+	}
+
+	return key
 }
 
 // NewTranslator generates and returns Translator object
